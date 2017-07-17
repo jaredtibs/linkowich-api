@@ -23,6 +23,10 @@ Rails.application.routes.draw do
         put  'reset-password'  => 'users#update_password'
         post 'user/avatar'     => 'users#update_avatar'
         post 'reset-password'  => 'users#reset_password'
+
+        # following
+        post   'user/follow/:username' => 'users#follow'
+        delete 'user/follow/:username' => 'users#unfollow'
       end
 
     end

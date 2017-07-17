@@ -4,7 +4,9 @@ class Api::V1::UsersController < Api::V1::BaseController
     :search,
     :update,
     :update_email,
-    :update_avatar
+    :update_avatar,
+    :follow,
+    :unfollow
   ]
 
   before_action :find_user_by_name, only: [:show]
@@ -81,6 +83,25 @@ class Api::V1::UsersController < Api::V1::BaseController
       render json: current_user, serializer: UserSerializer, status: :ok
     else
       render json: {errors: "error updating avatar"}, status: :unprocessable_entity
+    end
+  end
+
+  def follow
+    followee = User.find_by username: params[:username]
+    if followee and current_user.follow followee.id
+      # send notification here
+      render json: current_user.following
+    else
+      render json: {errors: "unable to follow that user"}, status: :unprocessable_entity
+    end
+  end
+
+  def unfollow
+    followee = User.find_by username: params[:username]
+    if followee and current_user.unfollow(followee.id)
+      render json: current_user.following
+    else
+      render json: {errors: "unable to unfollow that user" }, status: :unprocessable_entity
     end
   end
 

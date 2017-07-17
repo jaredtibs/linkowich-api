@@ -19,6 +19,15 @@ class User < ApplicationRecord
     following_relationship ? following_relationship.destroy : false
   end
 
+  def current_link
+    links.where(current: true).first
+  end
+
+  def following_links
+    following.joins(:links)
+      .where('links.current = true').pluck :url
+  end
+
   def image_data=(data)
     # decode data and create stream on them
     io = CarrierStringIO.new(Base64.decode64(data))

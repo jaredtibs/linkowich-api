@@ -27,6 +27,11 @@ Rails.application.routes.draw do
         # following
         post   'user/follow/:username' => 'users#follow'
         delete 'user/follow/:username' => 'users#unfollow'
+
+        # links
+        post 'links'  => 'links#create'
+        get  'links'  => 'links#for_user'
+        get  'links/me' => 'links#current'
       end
 
     end

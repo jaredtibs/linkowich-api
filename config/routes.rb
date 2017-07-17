@@ -9,10 +9,10 @@ Rails.application.routes.draw do
 
         devise_for :users, skip: :all
         devise_scope :user do
-          post 'registrations'  => 'registrations#create'
-          post 'sessions'       => 'sessions#create'
-          get  'sessions'       => 'sessions#show'
-          delete '/sessions'    => 'sessions#destroy'
+          post   'registrations'  => 'registrations#create'
+          post   'sessions'       => 'sessions#create'
+          get    'sessions'       => 'sessions#show'
+          delete 'sessions'       => 'sessions#destroy'
         end
 
         # users

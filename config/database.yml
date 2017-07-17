@@ -1,0 +1,13 @@
+default: &default
+  adapter: postgresql
+  database: lynx
+  host: localhost
+
+development:
+  <<: *default
+  database: lynx_development
+  min_messages: warning
+
+test:
+  <<: *default
+  database: lynx_test

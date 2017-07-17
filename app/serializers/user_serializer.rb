@@ -5,4 +5,5 @@ class UserSerializer < ActiveModel::Serializer
     :username,
     :avatar
   )
+
 end

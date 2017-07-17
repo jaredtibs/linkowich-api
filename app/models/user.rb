@@ -23,9 +23,11 @@ class User < ApplicationRecord
     links.where(current: true).first
   end
 
+  #TODO currently your feeds is composed of serialized link objects
+  # you need to consider the idea of having your feed by composed of who you follow
+  # user objects, and pull each one's current link
   def following_links
-    following.joins(:links)
-      .where('links.current = true').pluck :url
+    Link.where("user_id IN (?)", following.pluck(:id)).where(current: true)
   end
 
   def image_data=(data)

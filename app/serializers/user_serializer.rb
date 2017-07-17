@@ -6,4 +6,12 @@ class UserSerializer < ActiveModel::Serializer
     :avatar
   )
 
+  def user
+    @user ||= object
+  end
+
+  def type
+    user.class.name
+  end
+
 end

@@ -9,6 +9,10 @@ class LinkSerializer < ActiveModel::Serializer
     @link ||= object
   end
 
+  def type
+    link.class.name
+  end
+
   def user
     link.serialized_user
   end

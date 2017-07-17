@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170717012801) do
+ActiveRecord::Schema.define(version: 20170717020242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,18 +25,29 @@ ActiveRecord::Schema.define(version: 20170717012801) do
     t.index ["following_id"], name: "index_follows_on_following_id", using: :btree
   end
 
+  create_table "links", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "url",                     null: false
+    t.integer  "seen_by",    default: [],              array: true
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["user_id"], name: "index_links_on_user_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
-    t.string   "email",              default: "", null: false
-    t.string   "encrypted_password", default: "", null: false
-    t.string   "username",           default: "", null: false
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "username",               default: "", null: false
     t.string   "avatar"
-    t.integer  "sign_in_count",      default: 0
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.integer  "sign_in_count",          default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
 end

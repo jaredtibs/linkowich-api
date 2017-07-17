@@ -6,6 +6,9 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :username, null: false, default: ""
       t.string :avatar
 
+      t.string :reset_password_token
+      t.datetime :reset_password_sent_at
+
       # devise trackable columns
       t.integer :sign_in_count, default: 0
       t.datetime :current_sign_in_at

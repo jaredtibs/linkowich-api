@@ -264,7 +264,7 @@ DEPENDENCIES
   pg
   puma
   rack-cors
-  rails (~> 5.0.0)
+  rails (~> 5.0.4)
   rails_12factor
   redis (~> 3.0)
   redis-namespace

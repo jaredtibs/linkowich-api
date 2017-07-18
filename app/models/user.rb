@@ -27,7 +27,9 @@ class User < ApplicationRecord
   # you need to consider the idea of having your feed by composed of who you follow
   # user objects, and pull each one's current link
   def following_links
-    Link.where("user_id IN (?)", following.pluck(:id)).where(current: true)
+    Link.where("user_id IN (?)", following.pluck(:id))
+      .where(current: true)
+      .order('created_at desc')
   end
 
   def image_data=(data)

@@ -2,7 +2,7 @@ class Api::V1::LinksController < Api::V1::BaseController
   before_action :authenticate_user!
 
   def create
-    @link = current_user.link.build link_params
+    @link = current_user.links.build link_params
     @link.current = true
     if @link.save
       current_user.links.where.not(id: @link.id).update_all current: false

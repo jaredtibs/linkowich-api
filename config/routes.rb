@@ -25,12 +25,13 @@ Rails.application.routes.draw do
         post 'reset-password'  => 'users#reset_password'
 
         # following
-        post   'user/follow/:username' => 'users#follow'
-        delete 'user/follow/:username' => 'users#unfollow'
+        post   'users/follow/:username' => 'users#follow'
+        delete 'users/follow/:username' => 'users#unfollow'
+
+        get 'users/following' => 'links#feed'
 
         # links
         post 'links'  => 'links#create'
-        get  'links'  => 'links#for_user'
         get  'links/me' => 'links#current'
       end
 

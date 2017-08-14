@@ -23,9 +23,6 @@ class User < ApplicationRecord
     links.where(current: true).first
   end
 
-  #TODO currently your feeds is composed of serialized link objects
-  # you need to consider the idea of having your feed by composed of who you follow
-  # user objects, and pull each one's current link
   def following_links
     Link.where("user_id IN (?)", following.pluck(:id))
       .where(current: true)
@@ -33,7 +30,7 @@ class User < ApplicationRecord
   end
 
   def image_data=(data)
-    # decode data and create stream on them
+    # decode data and create stream
     io = CarrierStringIO.new(Base64.decode64(data))
     self.avatar = io
   end

@@ -21,6 +21,15 @@ class Api::V1::LinksController < Api::V1::BaseController
     end
   end
 
+  def feed
+    @following = current_user.following
+    render json: @following,
+      meta: {count: @following.count},
+      each_serializer: UserSerializer,
+      status: :ok
+  end
+
+  # unused
   def for_user
     @links = current_user.following_links
     render json: @links,

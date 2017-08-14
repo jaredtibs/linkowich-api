@@ -3,7 +3,8 @@ class UserSerializer < ActiveModel::Serializer
     :id,
     :email,
     :username,
-    :avatar
+    :avatar,
+    :current_link
   )
 
   def user
@@ -12,6 +13,10 @@ class UserSerializer < ActiveModel::Serializer
 
   def type
     user.class.name
+  end
+
+  def current_link
+    user.current_link
   end
 
 end

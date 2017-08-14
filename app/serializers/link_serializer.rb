@@ -13,8 +13,4 @@ class LinkSerializer < ActiveModel::Serializer
     link.class.name
   end
 
-  def user
-    link.serialized_user
-  end
-
 end

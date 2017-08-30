@@ -26,5 +26,15 @@ module LynxApi
     config.autoload_paths += %W(#{config.root}/app/workers)
     config.active_record.raise_in_transactional_callbacks = true
 
+    # CORS
+    config.middleware.insert_before 0, "Rack::Cors" do
+      allow do
+        origins Rails.env.production? || Rails.env.staging? ? ENV['CLIENT_URL'] : '*'
+        resource '*',
+          headers: :any,
+          methods: [:get, :post, :put, :patch, :delete, :options, :head]
+      end
+    end
+
   end
 end

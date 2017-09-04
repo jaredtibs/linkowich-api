@@ -23,6 +23,10 @@ class User < ApplicationRecord
     links.where(current: true).first
   end
 
+  def clear_current_link
+    links.where(current: true).update_all(current: false)
+  end
+
   #TODO currently your feeds is composed of serialized link objects
   # you need to consider the idea of having your feed by composed of who you follow
   # user objects, and pull each one's current link

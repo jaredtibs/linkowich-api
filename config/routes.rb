@@ -29,9 +29,10 @@ Rails.application.routes.draw do
         delete 'user/follow/:username' => 'users#unfollow'
 
         # links
-        post 'links'  => 'links#create'
-        get  'links'  => 'links#for_user'
-        get  'links/me' => 'links#current'
+        post   'links'    => 'links#create'
+        get    'links'    => 'links#for_user'
+        get    'links/me' => 'links#current'
+        delete 'links/me' => 'links#clear'
       end
 
     end

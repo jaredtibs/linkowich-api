@@ -25,7 +25,7 @@ class Api::V1::LinksController < Api::V1::BaseController
     if current_user.clear_current_link
       render json: { success: true, message: "link successfully cleared" }, status: :ok
     else
-      render json: { success: false, message: "Unable to clear link" }, status: :unprocessable_entity
+      render json: { errors: ["unable to clear link"] }, status: :unprocessable_entity
     end
   end
 

@@ -25,6 +25,8 @@ Rails.application.routes.draw do
         post 'reset-password'  => 'users#reset_password'
 
         # following
+        get    'user/followers'        => 'users#followers'
+        get    'user/following'        => 'users#following'
         post   'user/follow/:username' => 'users#follow'
         delete 'user/follow/:username' => 'users#unfollow'
 

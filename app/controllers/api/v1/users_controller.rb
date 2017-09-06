@@ -6,7 +6,9 @@ class Api::V1::UsersController < Api::V1::BaseController
     :update_email,
     :update_avatar,
     :follow,
-    :unfollow
+    :unfollow,
+    :followers,
+    :following
   ]
 
   before_action :find_user_by_name, only: [:show]
@@ -103,6 +105,18 @@ class Api::V1::UsersController < Api::V1::BaseController
     else
       render json: {errors: "unable to unfollow that user" }, status: :unprocessable_entity
     end
+  end
+
+  def following
+    render json: current_user.following, each_serializer: UserSerializer, status: :ok
+  rescue
+    render json: {errors: "something went wrong"}, status: :internal_server_error
+  end
+
+  def followers
+    render json: current_user.followers, each_serializer: UserSerializer, status: :ok
+  rescue
+    render json: {errors: "something went wrong"}, status: :internal_server_error
   end
 
   private

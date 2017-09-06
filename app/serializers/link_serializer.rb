@@ -3,8 +3,8 @@ class LinkSerializer < ActiveModel::Serializer
 
   attributes(
     :id,
-    :url,
     :published_at,
+    :url,
     :seen_by,
     :user
   )

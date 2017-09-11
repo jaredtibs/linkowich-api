@@ -131,6 +131,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     else
       render json: {errors: "unable to follow using that code" }, status: :unprocessable_entity
     end
+  end
 
   private
 

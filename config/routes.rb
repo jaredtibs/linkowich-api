@@ -27,8 +27,13 @@ Rails.application.routes.draw do
         # following
         get    'user/followers'        => 'users#followers'
         get    'user/following'        => 'users#following'
-        post   'user/follow/:username' => 'users#follow'
-        delete 'user/follow/:username' => 'users#unfollow'
+        post   'user/follow/:code'     => 'users#follow_by_code'
+
+        # unused atm - TBD
+        #post   'user/follow/:username' => 'users#follow'
+        #delete 'user/follow/:username' => 'users#unfollow'
+
+        # invitations
 
         # links
         post   'links'    => 'links#create'

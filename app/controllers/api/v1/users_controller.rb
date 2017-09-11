@@ -92,7 +92,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     followee = User.find_by username: params[:username]
     if followee and current_user.follow followee.id
       # send notification here
-      render json: current_user.following
+      render json: current_user.following, status: :ok
     else
       render json: {errors: "unable to follow that user"}, status: :unprocessable_entity
     end
@@ -101,7 +101,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   def unfollow
     followee = User.find_by username: params[:username]
     if followee and current_user.unfollow(followee.id)
-      render json: current_user.following
+      render json: current_user.following, status: :ok
     else
       render json: {errors: "unable to unfollow that user" }, status: :unprocessable_entity
     end
@@ -118,6 +118,19 @@ class Api::V1::UsersController < Api::V1::BaseController
   rescue
     render json: {errors: "something went wrong"}, status: :internal_server_error
   end
+
+  def follow_by_code
+    user_by_code = User.where(follow_code: params[:code]).first
+    unless user_by_code
+      render json: {errors: "no user found by that code"}, status: :not_found
+      return
+    end
+
+    if current_user.follow(user_by_code) and user_by_code.follow(current_user)
+      render json: user_by_code, serializer: UserSerializer, status: :ok
+    else
+      render json: {errors: "unable to follow using that code" }, status: :unprocessable_entity
+    end
 
   private
 

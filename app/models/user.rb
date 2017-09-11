@@ -9,9 +9,10 @@ class User < ApplicationRecord
   has_many :following, through: :following_relationships, source: :following
 
   has_many :links
+  before_create :generate_follow_code
 
   def follow(user_id)
-    following_relationships.create following_id: user_id
+    following_relationships.find_or_create_by following_id: user_id
   end
 
   def unfollow(user_id)
@@ -27,9 +28,6 @@ class User < ApplicationRecord
     links.where(current: true).update_all(current: false)
   end
 
-  #TODO currently your feeds is composed of serialized link objects
-  # you need to consider the idea of having your feed by composed of who you follow
-  # user objects, and pull each one's current link
   def following_links
     Link.where("user_id IN (?)", following.pluck(:id))
       .where(current: true)
@@ -40,6 +38,12 @@ class User < ApplicationRecord
     # decode data and create stream on them
     io = CarrierStringIO.new(Base64.decode64(data))
     self.avatar = io
+  end
+
+  private
+
+  def generate_follow_code
+    self.follow_code = SecureRandom.hex(3)
   end
 
 end

@@ -2,10 +2,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :trackable, :recoverable
   mount_uploader :avatar, AvatarUploader
 
-  has_many :follower_relationships, foreign_key: :following_id, class_name: 'Follow'
+  has_many :follower_relationships, -> { order(created_at: :desc) }, foreign_key: :following_id, class_name: 'Follow'
   has_many :followers, through: :follower_relationships, source: :follower
 
-  has_many :following_relationships, foreign_key: :follower_id, class_name: 'Follow'
+  has_many :following_relationships, -> { order(created_at: :desc) }, foreign_key: :follower_id, class_name: 'Follow'
   has_many :following, through: :following_relationships, source: :following
 
   has_many :links

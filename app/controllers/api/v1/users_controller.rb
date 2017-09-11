@@ -126,8 +126,8 @@ class Api::V1::UsersController < Api::V1::BaseController
       return
     end
 
-    if current_user.follow(user_by_code) and user_by_code.follow(current_user)
-      render json: user_by_code, serializer: UserSerializer, status: :ok
+    if current_user.follow(user_by_code.id) && user_by_code.follow(current_user.id)
+      render json: current_user.following, each_serializer: UserSerializer, status: :ok
     else
       render json: {errors: "unable to follow using that code" }, status: :unprocessable_entity
     end

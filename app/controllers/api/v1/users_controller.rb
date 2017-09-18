@@ -8,10 +8,11 @@ class Api::V1::UsersController < Api::V1::BaseController
     :follow,
     :unfollow,
     :followers,
-    :following
+    :following,
+    :links
   ]
 
-  before_action :find_by_username, only: [:show, :links]
+  before_action :find_by_username, only: [:show]
 
   def show
     if @user
@@ -142,17 +143,15 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def links
-    if @user
-      links = @user.links.order('created_at desc')
-      render json: links,
-        meta: {count: links.count},
-        each_serializer: LinkSerializer,
-        scope: current_user,
-        scope_name: :current_user,
-        status: :ok
-    else
-      render json: { errors: "User not found." }, status: :not_found
-    end
+    links = current_user.links.order('created_at desc')
+    render json: links,
+      meta: {count: links.count},
+      each_serializer: LinkSerializer,
+      scope: current_user,
+      scope_name: :current_user,
+      status: :ok
+  rescue
+    render json: {errors: "something went wrong"}, status: :internal_server_error
   end
 
   private

@@ -27,8 +27,8 @@ Rails.application.routes.draw do
         get    'user/following'        => 'users#following'
         post   'user/follow/:code'     => 'users#follow_by_code'
 
-        get    'users/:username'       => 'users#show'
-        get    'users/:username/links' => 'users#links'
+        get    'user/links'       => 'users#links'
+        get    'users/:username'  => 'users#show'
 
         # unused atm - TBD
         #post   'users/:username/follow' => 'users#follow'

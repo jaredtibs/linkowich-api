@@ -11,7 +11,15 @@ class Api::V1::UsersController < Api::V1::BaseController
     :following
   ]
 
-  before_action :find_user_by_name, only: [:show]
+  before_action :find_by_username, only: [:show, :links]
+
+  def show
+    if @user
+      render json: @user, serializer: UserSerializer, status: :ok
+    else
+      render json: { errors: "User not found." }, status: :not_found
+    end
+  end
 
   def search
     query = params[:query] || nil
@@ -133,9 +141,23 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
+  def links
+    if @user
+      links = @user.links.order('created_at desc')
+      render json: links,
+        meta: {count: links.count},
+        each_serializer: LinkSerializer,
+        scope: current_user,
+        scope_name: :current_user,
+        status: :ok
+    else
+      render json: { errors: "User not found." }, status: :not_found
+    end
+  end
+
   private
 
-  def find_user_by_name
+  def find_by_username
     @user = User.find_by username: params[:username]
   end
 

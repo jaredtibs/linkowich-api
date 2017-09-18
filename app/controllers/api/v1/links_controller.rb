@@ -29,7 +29,7 @@ class Api::V1::LinksController < Api::V1::BaseController
     end
   end
 
-  def for_user
+  def feed
     @links = current_user.following_links
     render json: @links,
       meta: {count: @links.count},

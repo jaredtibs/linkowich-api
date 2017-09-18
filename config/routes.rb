@@ -16,8 +16,6 @@ Rails.application.routes.draw do
         end
 
         # users
-        get  'users/:username' => 'users#show'
-        get  'search/users'    => 'users#search'
         put  'user'            => 'users#update'
         put  'user/email'      => 'users#update_email'
         put  'reset-password'  => 'users#update_password'
@@ -29,16 +27,19 @@ Rails.application.routes.draw do
         get    'user/following'        => 'users#following'
         post   'user/follow/:code'     => 'users#follow_by_code'
 
+        get    'users/:username'       => 'users#show'
+        get    'users/:username/links' => 'users#links'
+
         # unused atm - TBD
-        #post   'user/follow/:username' => 'users#follow'
-        #delete 'user/follow/:username' => 'users#unfollow'
+        #post   'users/:username/follow' => 'users#follow'
+        #delete 'users/:username/follow' => 'users#unfollow'
 
         # invitations
 
-        # links
-        post   'links'    => 'links#create'
-        get    'links'    => 'links#for_user'
+        # links (Feed)
+        get    'links'    => 'links#feed'
         get    'links/me' => 'links#current'
+        post   'links'    => 'links#create'
         delete 'links/me' => 'links#clear'
       end
 

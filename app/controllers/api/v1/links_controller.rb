@@ -1,5 +1,6 @@
 class Api::V1::LinksController < Api::V1::BaseController
   before_action :authenticate_user!
+  before_action :find_link, only: [:mark_as_seen]
 
   def create
     @link = current_user.links.build link_params
@@ -39,7 +40,22 @@ class Api::V1::LinksController < Api::V1::BaseController
       status: :ok
   end
 
+  def mark_as_seen
+    @link.seen_by << current_user.id
+    if @link.save
+      render json: { success: "Link #{@link.id} marked as seen" }, status: :ok
+    else
+      render json: { errors: @link.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def find_link
+    @link = Link.find params[:id]
+  rescue
+    render json: { errors: "Link not found." }, status: :ok and return
+  end
 
   def link_params
     params.require(:url)

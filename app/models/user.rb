@@ -20,6 +20,10 @@ class User < ApplicationRecord
     following_relationship ? following_relationship.destroy : false
   end
 
+  def follows?(user_id)
+    following_relationships.where(following_id: user_id).exists?
+  end
+
   def current_link
     links.where(current: true).first
   end

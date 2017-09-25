@@ -117,13 +117,21 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def following
-    render json: current_user.following, each_serializer: UserSerializer, status: :ok
+    render json: current_user.following,
+      each_serializer: UserSerializer,
+      scope: current_user,
+      scope_name: :current_user,
+      status: :ok
   rescue
     render json: {errors: "something went wrong"}, status: :internal_server_error
   end
 
   def followers
-    render json: current_user.followers, each_serializer: UserSerializer, status: :ok
+    render json: current_user.followers,
+      each_serializer: UserSerializer,
+      scope: current_user,
+      scope_name: :current_user,
+      status: :ok
   rescue
     render json: {errors: "something went wrong"}, status: :internal_server_error
   end

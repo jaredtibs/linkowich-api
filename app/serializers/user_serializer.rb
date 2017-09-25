@@ -4,7 +4,8 @@ class UserSerializer < ActiveModel::Serializer
     :email,
     :username,
     :avatar,
-    :link_count
+    :link_count,
+    :is_following
   )
 
   def user
@@ -17,6 +18,10 @@ class UserSerializer < ActiveModel::Serializer
 
   def link_count
     user.links.count
+  end
+
+  def is_following
+    current_user.follows?(user.id)
   end
 
 end

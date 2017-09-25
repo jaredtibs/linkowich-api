@@ -118,7 +118,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def following
     render json: current_user.following,
-      each_serializer: UserSerializer,
+      each_serializer: FriendSerializer,
       scope: current_user,
       scope_name: :current_user,
       status: :ok
@@ -128,7 +128,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def followers
     render json: current_user.followers,
-      each_serializer: UserSerializer,
+      each_serializer: FriendSerializer,
       scope: current_user,
       scope_name: :current_user,
       status: :ok

@@ -98,19 +98,19 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def follow
-    followee = User.find_by username: params[:username]
+    followee = User.find_by id: params[:id]
     if followee and current_user.follow followee.id
       # send notification here
-      render json: current_user.following, status: :ok
+      render json: followee, serializer: FriendSerializer, status: :ok
     else
       render json: {errors: "unable to follow that user"}, status: :unprocessable_entity
     end
   end
 
   def unfollow
-    followee = User.find_by username: params[:username]
+    followee = User.find_by id: params[:id]
     if followee and current_user.unfollow(followee.id)
-      render json: current_user.following, status: :ok
+      render json: followee, serializer: FriendSerializer, status: :ok
     else
       render json: {errors: "unable to unfollow that user" }, status: :unprocessable_entity
     end

@@ -3,7 +3,9 @@ class LinkSerializer < ActiveModel::Serializer
 
   attributes(
     :id,
+    :created_at,
     :published_at,
+    :published_ago,
     :url,
     :seen_by,
     :user
@@ -22,6 +24,12 @@ class LinkSerializer < ActiveModel::Serializer
   end
 
   def published_at
+    link.created_at
+      .in_time_zone("Pacific Time (US & Canada)")
+      .strftime("%^B %d, %Y|%-l:%M %p")
+  end
+
+  def published_ago
     time_ago_in_words(link.created_at)
   end
 

@@ -20,6 +20,8 @@ module LynxApi
   class Application < Rails::Application
     config.api_only = true
 
+    config.active_job.queue_adapter = :sidekiq
+
     config.autoload_paths += %W(#{config.root}/lib)
     config.eager_load_paths += %W(#{config.root}/lib)
     config.autoload_paths += %W(#{config.root}/app/services)

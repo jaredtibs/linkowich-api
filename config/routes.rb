@@ -22,7 +22,7 @@ Rails.application.routes.draw do
         post 'user/avatar'     => 'users#update_avatar'
         post 'reset-password'  => 'users#reset_password'
 
-        # following
+        # follow relationships
         get    'user/followers'        => 'users#followers'
         get    'user/following'        => 'users#following'
         post   'user/follow/:code'     => 'users#follow_by_code'
@@ -31,6 +31,7 @@ Rails.application.routes.draw do
         delete 'users/:id/follow' => 'users#unfollow'
 
         # invitations
+        post   'invitations' => 'invitations#create'
 
         # links (Feed)
         get    'links'          => 'links#feed'

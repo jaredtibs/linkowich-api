@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :following, through: :following_relationships, source: :following
 
   has_many :links
+  has_many :invitations, foreign_key: 'sender_id'
+
   before_create :generate_follow_code
 
   def follow(user_id)

@@ -38,6 +38,10 @@ class User < ApplicationRecord
     Link.decrement_counter(:upvote_count, link.id)
   end
 
+  def total_upvotes
+    links.sum(:upvote_count)
+  end
+
   def current_link
     links.where(current: true).first
   end

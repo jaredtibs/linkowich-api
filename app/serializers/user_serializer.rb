@@ -4,7 +4,8 @@ class UserSerializer < ActiveModel::Serializer
     :email,
     :username,
     :avatar,
-    :link_count
+    :link_count,
+    :upvotes
   )
 
   def user
@@ -17,6 +18,10 @@ class UserSerializer < ActiveModel::Serializer
 
   def link_count
     user.links.count
+  end
+
+  def upvotes
+    user.total_upvotes
   end
 
 end

@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  acts_as_voter
+
   devise :database_authenticatable, :trackable, :recoverable
   mount_uploader :avatar, AvatarUploader
 
@@ -24,6 +26,16 @@ class User < ApplicationRecord
 
   def follows?(user_id)
     following_relationships.where(following_id: user_id).exists?
+  end
+
+  def upvote(link)
+    link.vote_by voter: self
+    Link.increment_counter(:upvote_count, link.id)
+  end
+
+  def unvote(link)
+    link.unvote_by self
+    Link.decrement_counter(:upvote_count, link.id)
   end
 
   def current_link

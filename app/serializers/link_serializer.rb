@@ -9,7 +9,8 @@ class LinkSerializer < ActiveModel::Serializer
     :url,
     :seen_by,
     :user,
-    :voted_for
+    :voted_for,
+    :upvote_count
   )
 
   def link

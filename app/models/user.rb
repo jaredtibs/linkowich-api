@@ -26,6 +26,16 @@ class User < ApplicationRecord
     following_relationships.where(following_id: user_id).exists?
   end
 
+  def upvote(link)
+    link.vote_by voter: self
+    Link.increment_counter(:upvote_count, link.id)
+  end
+
+  def unvote(link)
+    link.unvote_by voter: self
+    Link.decrement_counter(:upvote_count, link.id)
+  end
+
   def current_link
     links.where(current: true).first
   end

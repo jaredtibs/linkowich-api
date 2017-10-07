@@ -34,11 +34,13 @@ Rails.application.routes.draw do
         post   'invitations' => 'invitations#create'
 
         # links (Feed)
-        get    'links'          => 'links#feed'
-        get    'links/me'       => 'links#current'
-        post   'links'          => 'links#create'
-        post   'links/:id/seen' => 'links#mark_as_seen'
-        delete 'links/me'       => 'links#clear'
+        get    'links'            => 'links#feed'
+        get    'links/me'         => 'links#current'
+        post   'links'            => 'links#create'
+        post   'links/:id/vote'   => 'links#upvote'
+        post   'links/:id/seen'   => 'links#mark_as_seen'
+        delete 'links/me'         => 'links#clear'
+        delete 'links/:id/vote'   => 'links#unvote'
 
         get    'user/links'       => 'users#links'
         get    'users/:username'  => 'users#show'

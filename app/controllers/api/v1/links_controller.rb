@@ -49,6 +49,24 @@ class Api::V1::LinksController < Api::V1::BaseController
     end
   end
 
+  def upvote
+    if current_user.upvote(@link)
+      @link.reload
+      render json: @link, serializer: LinkSerializer, status: :ok
+    else
+      render json: {errors: "unable to upvote link"}, status: :unprocessable_entity
+    end
+  end
+
+  def unvote
+    if current_user.unvote(@link)
+      @link.reload
+      render json: @link, serializer: LinkSerializer, status: :ok
+    else
+      render json: {errors: "unable to unvote vote"}, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def find_link

@@ -1,6 +1,6 @@
 class Api::V1::LinksController < Api::V1::BaseController
   before_action :authenticate_user!
-  before_action :find_link, only: [:mark_as_seen]
+  before_action :find_link, only: [:mark_as_seen, :upvote, :unvote]
 
   def create
     @link = current_user.links.build link_params
@@ -41,7 +41,7 @@ class Api::V1::LinksController < Api::V1::BaseController
   end
 
   def mark_as_seen
-    @link.seen_by << current_user.id
+    @link.seen_by |= [current_user.id]
     if @link.save
       render json: { success: "Link #{@link.id} marked as seen" }, status: :ok
     else

@@ -13,6 +13,12 @@ class User < ApplicationRecord
   has_many :links
   has_many :invitations, foreign_key: 'sender_id'
 
+  validates :username, presence: true, length: { minimum: 2 },
+            uniqueness: { case_sensitive: false }, on: [:create, :update]
+
+  validates_uniqueness_of :email
+  validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
+
   before_create :generate_follow_code
 
   def follow(user_id)

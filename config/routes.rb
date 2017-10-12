@@ -42,8 +42,10 @@ Rails.application.routes.draw do
         delete 'links/me'         => 'links#clear'
         delete 'links/:id/vote'   => 'links#unvote'
 
-        get    'user/links'       => 'users#links'
-        get    'users/:username'  => 'users#show'
+        # profiles
+        get    'users/:id'        => 'users#show'
+        get    'users/:id/links'  => 'users#links'
+
       end
 
     end

@@ -18,8 +18,13 @@ class User < ApplicationRecord
 
   validates_uniqueness_of :email
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
+  validates :password, presence: true, length: { within: 8..20 }
 
   before_create :generate_follow_code
+
+  def self.find_for_database_authentication(identifier)
+    find_by(username: identifier) || find_by(email: identifier)
+  end
 
   def follow(user_id)
     following_relationships.find_or_create_by following_id: user_id

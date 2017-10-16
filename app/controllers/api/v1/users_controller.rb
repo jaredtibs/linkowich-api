@@ -12,8 +12,9 @@ class Api::V1::UsersController < Api::V1::BaseController
     :links
   ]
 
-  before_action :find_by_username, only: [:show]
+  before_action :find_user, only: [:show, :links]
 
+  # profile
   def show
     if @user
       render json: @user, serializer: UserSerializer, status: :ok
@@ -151,7 +152,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def links
-    links = current_user.links.order('created_at desc')
+    links = @user.links.order('created_at desc')
     render json: links,
       meta: {count: links.count},
       each_serializer: LinkSerializer,
@@ -164,8 +165,12 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   private
 
-  def find_by_username
-    @user = User.find_by username: params[:username]
+  def find_user
+    if params[:id] == "me"
+      @user = current_user
+    else
+      @user = User.find_by id: params[:id]
+    end
   end
 
   def update_params

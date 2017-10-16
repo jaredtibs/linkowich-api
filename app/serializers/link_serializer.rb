@@ -37,7 +37,7 @@ class LinkSerializer < ActiveModel::Serializer
 
   def seen_by
     usernames = User.where(id: link.seen_by).pluck(:username)
-    usernames.map { |name| name == current_user.username ? 'You' : name }
+    usernames.map { |name| name == current_user.username ? 'you' : name }
   end
 
   def voted_for

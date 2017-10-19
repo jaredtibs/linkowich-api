@@ -21,6 +21,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { within: 8..20 }
 
   before_create :generate_follow_code
+  before_create { self.email.downcase! }
 
   def self.find_for_database_authentication(identifier)
     find_by(username: identifier) || find_by(email: identifier)

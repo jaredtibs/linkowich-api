@@ -10,4 +10,12 @@ class Api::V1::InvitationsController < Api::V1::BaseController
       render json: { errors: "Unable to send invite" }, status: :unprocessable_entity
     end
   end
+
+  def for_user
+    @invitations = Invitation.where(recipient_email: current_user.email)
+    render json: @invitations,
+           meta: { count: @invitations.count },
+           each_serializer: InvitationSerializer,
+           status: :ok
+  end
 end

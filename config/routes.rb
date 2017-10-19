@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
         # invitations
         post   'invitations' => 'invitations#create'
+        get    'invitations' => 'invitations#for_user'
 
         # links (Feed)
         get    'links'            => 'links#feed'

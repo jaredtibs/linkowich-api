@@ -40,13 +40,17 @@ class User < ApplicationRecord
   end
 
   def upvote(link)
-    link.vote_by voter: self
-    Link.increment_counter(:upvote_count, link.id)
+    unless voted_for? link
+      link.vote_by voter: self
+      Link.increment_counter(:upvote_count, link.id)
+    end
   end
 
   def unvote(link)
-    link.unvote_by self
-    Link.decrement_counter(:upvote_count, link.id)
+    if voted_for? link
+      link.unvote_by self
+      Link.decrement_counter(:upvote_count, link.id)
+    end
   end
 
   def total_upvotes

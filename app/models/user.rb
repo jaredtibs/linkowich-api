@@ -78,6 +78,10 @@ class User < ApplicationRecord
     self.avatar = io
   end
 
+  def has_unseen_invitations?
+    Invitation.where(recipient_email: self.email, viewed: false).any?
+  end
+
   private
 
   def generate_follow_code

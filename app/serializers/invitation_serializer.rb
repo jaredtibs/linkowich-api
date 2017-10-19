@@ -4,7 +4,8 @@ class InvitationSerializer < ActiveModel::Serializer
     :id,
     :created_at,
     :viewed,
-    :accepted
+    :accepted,
+    :sender
   )
 
   def invitation

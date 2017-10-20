@@ -31,8 +31,9 @@ Rails.application.routes.draw do
         delete 'users/:id/follow' => 'users#unfollow'
 
         # invitations
-        post   'invitations' => 'invitations#create'
-        get    'invitations' => 'invitations#for_user'
+        post   'invitations'            => 'invitations#create'
+        post   'invitations/:id/accept' => 'invitations#accept'
+        get    'invitations'            => 'invitations#for_user'
 
         # links (Feed)
         get    'links'            => 'links#feed'

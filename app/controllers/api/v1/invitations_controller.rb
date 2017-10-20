@@ -29,6 +29,7 @@ class Api::V1::InvitationsController < Api::V1::BaseController
     end
 
     if current_user.follow(@sender.id) && @sender.follow(current_user.id)
+      @invitation.update_column :accepted, true
       render json: { success: "Friendship added" }, status: :ok
     end
   end

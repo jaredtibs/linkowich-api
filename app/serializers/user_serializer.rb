@@ -26,8 +26,7 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def unseen_invitations
-    #user.has_unseen_invitations?
-    true
+    user.has_unseen_invitations?
   end
 
 end

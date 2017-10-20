@@ -5,7 +5,8 @@ class UserSerializer < ActiveModel::Serializer
     :username,
     :avatar,
     :link_count,
-    :upvotes
+    :upvotes,
+    :unseen_invitations
   )
 
   def user
@@ -22,6 +23,10 @@ class UserSerializer < ActiveModel::Serializer
 
   def upvotes
     user.total_upvotes
+  end
+
+  def unseen_invitations
+    user.has_unseen_invitations?
   end
 
 end

@@ -6,6 +6,7 @@ class UserSerializer < ActiveModel::Serializer
     :avatar,
     :link_count,
     :upvotes,
+    :follow_code,
     :unseen_invitations
   )
 

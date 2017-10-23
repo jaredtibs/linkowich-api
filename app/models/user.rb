@@ -18,7 +18,7 @@ class User < ApplicationRecord
 
   validates_uniqueness_of :email
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
-  validates :password, presence: true, length: { within: 8..20 }
+  validates :password, presence: true, length: { within: 8..20 }, on: :create
 
   before_create :generate_follow_code
   before_create { self.email.downcase! }
@@ -85,7 +85,7 @@ class User < ApplicationRecord
   private
 
   def generate_follow_code
-    self.follow_code = SecureRandom.hex(3)
+    self.follow_code = SecureRandom.hex(5)
   end
 
 end

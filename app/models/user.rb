@@ -21,6 +21,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { within: 8..20 }, on: :create
 
   before_create :generate_follow_code
+  before_create :set_default_avatar_color
   before_create { self.email.downcase! }
 
   def self.find_for_database_authentication(identifier)
@@ -86,6 +87,14 @@ class User < ApplicationRecord
 
   def generate_follow_code
     self.follow_code = SecureRandom.hex(5)
+  end
+
+  def default_avatar_colors
+    %w(blue pink purple)
+  end
+
+  def set_default_avatar_color
+    self.default_avatar_color = default_avatar_colors.sample
   end
 
 end

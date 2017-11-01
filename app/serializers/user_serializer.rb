@@ -7,7 +7,8 @@ class UserSerializer < ActiveModel::Serializer
     :link_count,
     :upvotes,
     :follow_code,
-    :unseen_invitations
+    :unseen_invitations,
+    :default_avatar_color
   )
 
   def user

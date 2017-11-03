@@ -1,9 +1,9 @@
 class NotificationPusher
   class << self
 
-    def send(user, link)
-      Pusher.trigger("link_published", "#{user.id}_published", {
-        message: { user_id: user.id, link_id: link.id }
+    def send(link)
+      Pusher.trigger("link_published", "#{link.user.id}_published", {
+        message: { user_id: link.user.id, link_id: link.id }
       })
     end
 

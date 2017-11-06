@@ -7,6 +7,7 @@ class UserSerializer < ActiveModel::Serializer
     :link_count,
     :upvotes,
     :follow_code,
+    :following_ids,
     :unseen_invitations,
     :default_avatar_color
   )
@@ -25,6 +26,10 @@ class UserSerializer < ActiveModel::Serializer
 
   def upvotes
     user.total_upvotes
+  end
+
+  def following_ids
+    user.following.pluck(:id)
   end
 
   def unseen_invitations

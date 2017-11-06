@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: "health#ping"
   get "/healthmonitor" => "health#ping"
+  mount Sidekiq::Web => '/sidekiq'
 
   scope module: :api do
     scope module: :v1 do

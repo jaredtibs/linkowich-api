@@ -1,0 +1,12 @@
+default:
+  host: localhost
+  port: 6379
+  namespace: linkowich_api_dev
+development:
+  db: 0
+test:
+  db: 1
+production:
+  db: 2
+staging:
+  db: 3

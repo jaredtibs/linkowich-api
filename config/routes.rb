@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: "health#ping"
   get "/healthmonitor" => "health#ping"
+  mount Sidekiq::Web => '/sidekiq'
 
   scope module: :api do
     scope module: :v1 do
@@ -48,6 +49,8 @@ Rails.application.routes.draw do
         get    'users/:id'        => 'users#show'
         get    'users/:id/links'  => 'users#links'
 
+        #tbd
+        #post   '/pusher/auth'     => 'notifications#pusher_auth'
       end
 
     end

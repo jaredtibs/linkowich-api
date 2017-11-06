@@ -49,6 +49,8 @@ Rails.application.routes.draw do
         get    'users/:id'        => 'users#show'
         get    'users/:id/links'  => 'users#links'
 
+        #tbd
+        #post   '/pusher/auth'     => 'notifications#pusher_auth'
       end
 
     end

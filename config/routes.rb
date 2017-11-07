@@ -42,8 +42,9 @@ Rails.application.routes.draw do
         post   'links'            => 'links#create'
         post   'links/:id/vote'   => 'links#upvote'
         post   'links/:id/seen'   => 'links#mark_as_seen'
-        delete 'links/me'         => 'links#clear'
+        delete 'links/me'         => 'links#clear_current'
         delete 'links/:id/vote'   => 'links#unvote'
+        delete 'links'            => 'links#clear_history'
 
         # profiles
         get    'users/:id'        => 'users#show'

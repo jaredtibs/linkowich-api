@@ -22,7 +22,7 @@ class Api::V1::LinksController < Api::V1::BaseController
     end
   end
 
-  def clear
+  def clear_current
     if current_user.clear_current_link
       render json: { success: true, message: "link successfully cleared" }, status: :ok
     else
@@ -38,6 +38,14 @@ class Api::V1::LinksController < Api::V1::BaseController
       scope: current_user,
       scope_name: :current_user,
       status: :ok
+  end
+
+  def clear_history
+    if current_user.links.destroy_all
+      render json: { success: "Link history cleared." }, status: :ok
+    else
+      render json: { errors: "Unable to clear link history" }, status: :unprocessable_entity
+    end
   end
 
   def mark_as_seen

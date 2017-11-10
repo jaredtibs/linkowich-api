@@ -6,6 +6,7 @@ class LinkSerializer < ActiveModel::Serializer
     :created_at,
     :published_at,
     :published_ago,
+    :current,
     :url,
     :seen_by,
     :user,

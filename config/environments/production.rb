@@ -83,7 +83,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     :address              => 'smtp.gmail.com',
     :port                 => 587,
-    :domain               => 'linkowhich.com',
+    :domain               => 'linkowhi.ch',
     :user_name            => Rails.application.secrets.email_username,
     :password             => Rails.application.secrets.email_password,
     :authentication       => 'plain',

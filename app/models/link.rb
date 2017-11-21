@@ -6,6 +6,9 @@ class Link < ApplicationRecord
 
   after_commit :trigger_pusher_event, on: :create
 
+  scope :visible, -> { where(hidden: false) }
+  scope :hidden,  -> { where(hidden: true) }
+
   def serialized_user
     if user
       ActiveModelSerializers::SerializableResource.new(user, serializer: UserSerializer)

@@ -152,7 +152,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def links
-    links = @user.links.order('created_at desc')
+    links = @user.links.visible.order('created_at desc')
     render json: links,
       meta: {count: links.count},
       each_serializer: LinkSerializer,

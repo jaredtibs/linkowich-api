@@ -41,7 +41,7 @@ class Api::V1::LinksController < Api::V1::BaseController
   end
 
   def clear_history
-    if current_user.links.destroy_all
+    if current_user.links.update_all current: false, hidden: true
       render json: { success: "Link history cleared." }, status: :ok
     else
       render json: { errors: "Unable to clear link history" }, status: :unprocessable_entity

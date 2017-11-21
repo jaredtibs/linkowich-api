@@ -60,7 +60,7 @@ class User < ApplicationRecord
   end
 
   def current_link
-    links.where(current: true).first
+    links.visible.where(current: true).first
   end
 
   def clear_current_link
@@ -69,7 +69,7 @@ class User < ApplicationRecord
 
   def following_links
     Link.where("user_id IN (?)", following.pluck(:id))
-      .where(current: true)
+      .visible.where(current: true)
       .order('created_at desc')
   end
 

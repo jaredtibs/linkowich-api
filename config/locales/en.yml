@@ -24,15 +24,15 @@ en:
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
-      half_a_minute: "half a minute"
+      half_a_minute: "just now"
       less_than_x_seconds:
-        one:   "less than 1s" # default was: "less than 1 second"
+        one:   "just now" # default was: "less than 1 second"
         other: "%{count}s" # default was: "less than %{count} seconds"
       x_seconds:
         one:   "1s"
         other: "%{count}s"
       less_than_x_minutes:
-        one:   "less than 1m" # default was: "less than a minute"
+        one:   "just now" # default was: "less than a minute"
         other: "%{count}m" # default was: "less than %{count} minutes"
       x_minutes:
         one:   "1m"

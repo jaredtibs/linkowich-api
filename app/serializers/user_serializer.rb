@@ -21,7 +21,7 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def link_count
-    user.links.count
+    user.links.visible.count
   end
 
   def upvotes

@@ -7,7 +7,8 @@ class Link < ApplicationRecord
   after_commit :trigger_pusher_event, on: :create
 
   scope :visible, -> { where(hidden: false) }
-  scope :hidden,  -> { where(hidden: true) }
+  scope :hidden,  -> { where(hidden: true)  }
+  scope :current, -> { where(current: true) }
 
   def serialized_user
     if user

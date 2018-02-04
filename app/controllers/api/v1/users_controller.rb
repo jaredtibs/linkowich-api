@@ -46,7 +46,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
     if @user
       token = UserService.reset_password_for @user
-      UserMailer.reset_password_email(user, token).deliver_later
+      UserMailer.reset_password_email(@user, token).deliver_later
       render json: { success: I18n.t('success.users.reset_password_sent')}, status: :ok
     else
       render json: { errors: I18n.t('errors.user_not_found') }, status: :unprocessable_entity

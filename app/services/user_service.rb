@@ -10,7 +10,7 @@ class UserService
       })
     end
 
-    def send_reset_password_instructions(user)
+    def reset_password_for(user)
       token_raw, token_enc = Devise.token_generator.generate(
         User, :reset_password_token
       )
@@ -21,7 +21,7 @@ class UserService
       token_raw
     end
 
-    def update_password(user, params)
+    def update_password_for(user, params)
       if user.reset_password_period_valid?
         if user.reset_password params[:password], params[:password_confirmation]
           token = generate_token_for user

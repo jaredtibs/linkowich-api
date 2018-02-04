@@ -45,8 +45,8 @@ class Api::V1::UsersController < Api::V1::BaseController
     @user = User.find_by email: params[:email]
 
     if @user
-      token = UserService.send_reset_password_instructions @user
-      #TODO send reset password instructions email
+      token = UserService.reset_password_for @user
+      UserMailer.reset_password_email(@user, token).deliver_later
       render json: { success: I18n.t('success.users.reset_password_sent')}, status: :ok
     else
       render json: { errors: I18n.t('errors.user_not_found') }, status: :unprocessable_entity
@@ -61,7 +61,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     user = User.find_by reset_password_token: pass_token
 
     if user
-      outcome = UserService.update_password(user, update_password_params)
+      outcome = UserService.update_password_for(user, update_password_params)
       if outcome[:result] == "success"
         sign_in user
         render json: {token: outcome[:result][:token]}, status: :ok
